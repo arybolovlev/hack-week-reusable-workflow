@@ -9,7 +9,7 @@ on:
       kind_version:
         description: 'KinD version to set up'
         required: true
-        default: '0.19.0'
+        default: '0.20.0'
         type: string
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Set variables
         run: |
-          echo "Set variables"
+          echo "Setting up variables"
   set_up_kind:
     uses: ./.github/workflows/reusable-setup-kind.yaml
     needs: [set_variables]
