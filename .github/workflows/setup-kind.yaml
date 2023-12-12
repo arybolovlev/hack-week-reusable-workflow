@@ -4,8 +4,6 @@ on:
   pull_request:
     branches:
       - main
-  schedule:
-    - cron: '0 * * * *'
   workflow_dispatch:
     inputs:
       kind_version:
@@ -14,15 +12,17 @@ on:
         default: '0.19.0'
         type: string
 
-env:
-  KIND_VERSION: ${{ inputs.kind_version || '0.20.0' }}
-
 jobs:
-  set_up_kind:
+  set_variables:
     runs-on: ubuntu-latest
+    outputs:
+      kind_version: ${{ inputs.kind_version || '0.20.0' }}
     steps:
-      - name: Set up KinD
-        uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
-        with:
-          wait: 2m
-          version: v${{ env.KIND_VERSION }}
+      - name: Set variables
+        run: |
+          echo "Set variables"
+  set_up_kind:
+    uses: ./.github/workflows/reusable-setup-kind.yaml
+    needs: [set_variables]
+    with:
+      kind_version: ${{ needs.set_variables.outputs.kind_version }}
