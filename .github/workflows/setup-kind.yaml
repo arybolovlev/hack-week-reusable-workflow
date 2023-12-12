@@ -18,7 +18,16 @@ env:
   KIND_VERSION: ${{ inputs.kind_version || '0.20.0' }}
 
 jobs:
+  set_variables:
+    runs-on: ubuntu-latest
+    outputs:
+      kind_version: ${{ env.KIND_VERSION }}
+    steps:
+      - name: Set variables
+        run: |
+          echo "Set variables"
   set_up_kind:
     uses: ./.github/workflows/reusable-setup-kind.yaml
+    needs: [set_variables]
     with:
-      kind_version: ${{ env.KIND_VERSION }}
+      kind_version: ${{ outputs.set_variables.kind_version }}
