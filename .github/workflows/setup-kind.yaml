@@ -15,7 +15,7 @@ on:
         type: string
 
 env:
-  KIND_VERSION: ${{ inputs.kind_version || vars.KIND_VERSION }}
+  KIND_VERSION: ${{ inputs.kind_version || '0.20.0' }}
 
 jobs:
   set_up_kind:
