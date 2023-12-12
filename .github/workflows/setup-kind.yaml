@@ -19,9 +19,6 @@ env:
 
 jobs:
   set_up_kind:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up KinD
-        uses: ./.github/workflows/reusable-setup-kind.yaml
-        with:
-          kind_version: ${{ env.KIND_VERSION }}
+    uses: ./.github/workflows/reusable-setup-kind.yaml
+    with:
+      kind_version: ${{ env.KIND_VERSION }}
