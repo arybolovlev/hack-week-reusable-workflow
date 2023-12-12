@@ -11,11 +11,10 @@ on:
       kind_version:
         description: 'KinD version to set up'
         required: true
-        default: '0.0.19'
+        default: '0.19.0'
         type: string
 
 env:
-  KUBECONFIG: ${{ github.workspace }}/.kube/config
   KIND_VERSION: ${{ inputs.kind_version || vars.KIND_VERSION }}
 
 jobs:
