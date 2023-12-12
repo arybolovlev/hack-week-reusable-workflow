@@ -30,4 +30,4 @@ jobs:
     uses: ./.github/workflows/reusable-setup-kind.yaml
     needs: [set_variables]
     with:
-      kind_version: ${{ outputs.set_variables.kind_version }}
+      kind_version: ${{ needs.set_variables.outputs.kind_version }}
