@@ -14,18 +14,18 @@ jobs:
       - name: Set variables
         run: |
           echo "Set variables"
-  nightly_set_up_kind:
+  set_up_kind:
     uses: ./.github/workflows/reusable-setup-kind.yaml
     needs: [set_variables]
     with:
       kind_version: ${{ needs.set_variables.outputs.kind_version }}
-  nightly_set_up_aks:
+  set_up_aks:
     uses: ./.github/workflows/reusable-setup-aks.yaml
-    needs: [nightly_set_up_kind]
+    needs: [set_up_kind]
     with:
       kubernetes_version: ${{ needs.set_variables.outputs.kubernetes_version }}
-  nightly_set_up_eks:
+  set_up_eks:
     uses: ./.github/workflows/reusable-setup-eks.yaml
-    needs: [nightly_set_up_kind]
+    needs: [set_up_kind]
     with:
       kubernetes_version: ${{ needs.set_variables.outputs.kubernetes_version }}
