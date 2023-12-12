@@ -15,6 +15,7 @@ on:
         type: string
 
 env:
+  KUBECONFIG: ${{ github.workspace }}/.kube/config
   KIND_VERSION: ${{ inputs.kind_version || vars.KIND_VERSION }}
 
 jobs:
@@ -24,5 +25,5 @@ jobs:
       - name: Set up KinD
         uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
         with:
-          wait: '2m'
+          wait: 2m
           version: v${{ env.KIND_VERSION }}
