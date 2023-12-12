@@ -1,0 +1,28 @@
+name: Set up KinD
+
+on:
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+    inputs:
+      kind_version:
+        description: 'KinD version to set up'
+        required: true
+        default: '0.0.19'
+        type: string
+
+env:
+  KIND_VERSION: ${{ inputs.kind_version || vars.KIND_VERSION }}
+
+jobs:
+  set_up_kind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up KinD
+        uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
+        with:
+          wait: '2m'
+          version: v${{ env.KIND_VERSION }}
