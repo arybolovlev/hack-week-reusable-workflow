@@ -23,9 +23,9 @@ jobs:
     uses: ./.github/workflows/reusable-setup-aks.yaml
     needs: [nightly_set_up_kind]
     with:
-      kubernetes_version: ${{ needs.set_variables.outputs.kind_version }}
+      kubernetes_version: ${{ needs.set_variables.outputs.kubernetes_version }}
   nightly_set_up_eks:
     uses: ./.github/workflows/reusable-setup-eks.yaml
     needs: [nightly_set_up_kind]
     with:
-      kubernetes_version: ${{ needs.set_variables.outputs.kind_version }}
+      kubernetes_version: ${{ needs.set_variables.outputs.kubernetes_version }}
