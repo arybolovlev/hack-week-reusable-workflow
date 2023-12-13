@@ -21,6 +21,7 @@ jobs:
         with:
           commit-message: Update reusable variables.
           title: 🤖 Update reusable variables
+          author: Kloud Automator <noreply@github.com>
           body: Update reusable variables. 🛠️
           base: main
           labels: automated-pr
