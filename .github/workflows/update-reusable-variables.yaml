@@ -2,7 +2,7 @@ name: Update reusable variables
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/5 * * * *'
 
 env:
   KIND_VERSION: ${{ vars.KIND_VERSION }}
@@ -17,7 +17,7 @@ jobs:
       - name: Update reusable variables
         uses: mikefarah/yq@dd648994340a5d03225d97abf19c9bf1086c3f07 # 4.40.5
         with:
-          cmd: yq -i '.on.workflow_call.outputs.kind_version.value=env(KIND_VERSION)' ${{ env.GITHUB_WORKSPACE }}/.github/workflows/reusable-variables.yaml
+          cmd: yq -i '.on.workflow_call.outputs.kind_version.value=env(KIND_VERSION)' ./.github/workflows/reusable-variables.yaml
       - name: Raise a pull request
         uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
         with:
@@ -28,7 +28,7 @@ jobs:
           labels: automated-pr
           branch: update-reusable-variable
           delete-branch: true
-          add-paths: ${{ env.GITHUB_WORKSPACE }}/.github/workflows/reusable-variables.yaml
+          add-paths: ./.github/workflows/reusable-variables.yaml
         # run: |
         #   gh pr create --base main \
         #                --head update-reusable-variable \
