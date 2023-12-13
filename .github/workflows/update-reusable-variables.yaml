@@ -18,8 +18,8 @@ jobs:
           cmd: yq -i '.on.workflow_call.outputs.kind_version.value=env(KIND_VERSION)' ${{ github.workspace }}/.github/workflows/reusable-variables.yaml
       - name: Raise a pull request
         run: |
-          gh pr create --base update-reusable-variable \
-                       --head main \
+          gh pr create --base main \
+                       --head update-reusable-variable \
                        --title '🤖 Update reusable variables' \
                        --body 'Update reusable variables. 🛠️' \
                        --label 'auto-pr' \
