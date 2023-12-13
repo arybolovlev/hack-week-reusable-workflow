@@ -1,4 +1,4 @@
-name: Reusable set up AKS workflow
+name: Reusable Set Up AKS Workflow
 
 on:
   workflow_call:

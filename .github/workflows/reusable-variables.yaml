@@ -1,0 +1,18 @@
+name: Set Reusable Variables
+
+on:
+  workflow_call:
+    outputs:
+      kind_version:
+        description: 'KinD version to set up'
+        value: ${{ jobs.set_variables.outputs.kind_version }}
+
+jobs:
+  set_variables:
+    runs-on: ubuntu-latest
+    outputs:
+      kind_version: '0.20.0'
+    steps:
+      - name: Set reusable variables
+        run: |
+          echo "Set reusable variables"

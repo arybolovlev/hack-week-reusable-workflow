@@ -1,4 +1,4 @@
-name: Reusable set up EKS workflow
+name: Reusable Set Up EKS Workflow
 
 on:
   workflow_call:
