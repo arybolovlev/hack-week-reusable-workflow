@@ -13,14 +13,6 @@ on:
         type: string
 
 jobs:
-  # set_variables:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     kind_version: ${{ inputs.kind_version || '0.20.0' }}
-  #   steps:
-  #     - name: Set variables
-  #       run: |
-  #         echo "Setting up variables"
   set_variables:
     uses: ./.github/workflows/reusable-variables.yaml
   set_up_kind:
