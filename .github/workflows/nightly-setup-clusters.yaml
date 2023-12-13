@@ -19,3 +19,8 @@ jobs:
     needs: [set_up_kind]
     with:
       kubernetes_version: ${{ vars.KUBERNETES_VERSION }}
+  set_up_gke:
+    uses: ./.github/workflows/reusable-setup-gke.yaml
+    needs: [set_up_kind]
+    with:
+      kubernetes_version: ${{ vars.KUBERNETES_VERSION }}
