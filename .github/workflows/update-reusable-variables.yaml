@@ -7,8 +7,6 @@ on:
 env:
   KIND_VERSION: ${{ vars.KIND_VERSION }}
 
-permissions: write-all
-
 jobs:
   update_reusable_variables:
     runs-on: ubuntu-latest
@@ -30,6 +28,7 @@ jobs:
           branch: update-reusable-variable
           delete-branch: true
           add-paths: ./.github/workflows/reusable-variables.yaml
+          token: ${{ secrets.WORKFLOW_ACCESS }}
         # run: |
         #   gh pr create --base main \
         #                --head update-reusable-variable \
