@@ -1,4 +1,4 @@
-name: Reusable set up KinD workflow
+name: Reusable Set Up KinD Workflow
 
 on:
   workflow_call:
