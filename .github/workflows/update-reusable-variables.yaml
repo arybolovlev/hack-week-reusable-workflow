@@ -28,6 +28,7 @@ jobs:
           labels: automated-pr
           branch: update-reusable-variable
           delete-branch: true
+          add-paths: ${{ env.GITHUB_WORKSPACE }}/.github/workflows/reusable-variables.yaml
         # run: |
         #   gh pr create --base main \
         #                --head update-reusable-variable \
