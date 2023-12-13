@@ -7,7 +7,6 @@ on:
 jobs:
   set_up_kind:
     uses: ./.github/workflows/reusable-setup-kind.yaml
-    needs: [set_variables]
     with:
       kind_version: ${{ vars.KIND_VERSION }}
   set_up_aks:
