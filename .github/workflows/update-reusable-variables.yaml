@@ -22,7 +22,14 @@ jobs:
           commit-message: Update reusable variables.
           title: 🤖 Update reusable variables
           author: Kloud Automator <noreply@github.com>
-          body: Update reusable variables. 🛠️
+          body: |
+            👋🏻 Hello!
+            
+            This PR is automatically generated in response to an update to repository variables. It is aimed at updating reusable workflow variables. 🛠️
+
+            Please review it and if everything looks fine, please approve it and merge it!
+            
+            Thank you! 🙌
           base: main
           labels: automated-pr
           branch: update-reusable-variable
