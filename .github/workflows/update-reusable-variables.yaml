@@ -2,14 +2,15 @@ name: 🤖 Update reusable variables
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/10 * * * *'
 
 env:
   KIND_VERSION: ${{ vars.KIND_VERSION }}
 
+permissions: write-all
+
 jobs:
   update_reusable_variables:
-    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
