@@ -4,7 +4,7 @@ on:
     outputs:
       kind_version:
         description: 'KinD version to set up'
-        value: '0.18.0'
+        value: '0.20.0'
 jobs:
   set_variables:
     runs-on: ubuntu-latest
