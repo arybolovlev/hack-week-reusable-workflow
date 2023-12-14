@@ -3,7 +3,6 @@ name: 🤖 Update reusable variables
 on:
   schedule:
     - cron: '*/10 * * * *'
-  workflow_dispatch:
 
 jobs:
   update_reusable_variables:
@@ -28,6 +27,7 @@ jobs:
       - name: Raise a pull request
         uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
         with:
+          author: Kubernetes Matroos <kubernetes-matroos@@users.noreply.github.com>
           commit-message: Update reusable variables.
           title: 🛟 Update reusable variables
           body: |
