@@ -41,7 +41,7 @@ jobs:
             
             Thank you! 🙌
           base: main
-          labels: automated-pr
+          labels: matroos
           branch: update-reusable-variable
           delete-branch: true
           add-paths: ./.github/workflows/reusable-variables.yaml
