@@ -8,8 +8,8 @@ jobs:
   update_reusable_variables:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate Token
-        id: generate_token
+      - name: Generate Application Token
+        id: generate_app_token
         uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
         with:
           app_id: ${{ secrets.APP_ID }}
@@ -45,4 +45,4 @@ jobs:
           branch: update-reusable-variable
           delete-branch: true
           add-paths: ./.github/workflows/reusable-variables.yaml
-          token: ${{ steps.generate_token.outputs.token }}
+          token: ${{ steps.generate_app_token.outputs.token }}
