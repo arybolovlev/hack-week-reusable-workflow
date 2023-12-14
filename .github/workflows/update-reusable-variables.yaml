@@ -2,7 +2,7 @@ name: Update reusable variables
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '0 * * * *'
 
 jobs:
   update_reusable_variables:
