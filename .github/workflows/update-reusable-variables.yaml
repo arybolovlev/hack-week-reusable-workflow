@@ -27,7 +27,7 @@ jobs:
       - name: Raise a pull request
         uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
         with:
-          author: kubernetes-matroos <698400+kubernetes-matroos[bot]@users.noreply.github.com>
+          author: kubernetes-matroos[bot] <153752817+kubernetes-matroos[bot]@users.noreply.github.com>
           commit-message: Update reusable variables.
           title: 🛟 Update reusable variables
           body: |
