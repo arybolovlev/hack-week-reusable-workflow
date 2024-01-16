@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Validate Node image
         if: ${{ !contains(env.KIND_NODE_IMAGE, 'kindest/node') }}
-        run:
+        run: |
           echo "Invalid KinD Node image"
           exit 1
       - name: Reusable set up KinD
