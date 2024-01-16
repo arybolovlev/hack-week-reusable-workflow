@@ -29,7 +29,7 @@ jobs:
         env:
           KUBERNETES_VERSION: ${{ vars.KUBERNETES_VERSION }}
         with:
-          cmd: yq -i '.on.workflow_call.outputs.kubernets_version.value=env(KUBERNETES_VERSION)' ./.github/workflows/reusable-variables.yaml
+          cmd: yq -i '.on.workflow_call.outputs.kubernetes_version.value=env(KUBERNETES_VERSION)' ./.github/workflows/reusable-variables.yaml
       - name: Raise a pull request
         uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
         with:
