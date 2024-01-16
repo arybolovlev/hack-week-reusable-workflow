@@ -22,7 +22,7 @@ jobs:
       - name: Validate Node image
         if: ${{ !contains(env.KIND_NODE_IMAGE, 'kindest/node') }}
         run: |
-          echo "Invalid KinD Node image"
+          echo "Invalid KinD Node image: $KIND_NODE_IMAGE"
           exit 1
       - name: Reusable set up KinD
         uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
