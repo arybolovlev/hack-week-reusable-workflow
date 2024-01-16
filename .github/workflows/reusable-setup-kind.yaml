@@ -7,11 +7,18 @@ on:
         description: 'KinD version to set up'
         required: true
         type: string
+      kubernetes_version:
+        description: 'Kubernetes version to run'
+        required: true
+        type: string
 
 jobs:
   reusable_set_up_kind:
     runs-on: ubuntu-latest
     steps:
+      - name: Get Node image
+        run:
+          echo "Get Node image"
       - name: Reusable set up KinD
         uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
         with:
