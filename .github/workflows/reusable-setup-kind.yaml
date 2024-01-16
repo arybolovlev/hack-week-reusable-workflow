@@ -22,7 +22,7 @@ jobs:
           KUBERNETES_VERSION: ${{ inputs.kubernetes_version }}
         run: |
           # echo KIND_NODE_IMAGE=`echo $KIND_NODE_IMAGES | jq '."env.KUBERNETES_VERSION"'`
-          echo $KIND_NODE_IMAGES | jq '."$KUBERNETES_VERSION"'
+          echo $KIND_NODE_IMAGES | jq '$KUBERNETES_VERSION'
       - name: Reusable set up KinD
         if: ${{ contains(env.KIND_NODE_IMAGE, 'kindest/node') }}
         uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
