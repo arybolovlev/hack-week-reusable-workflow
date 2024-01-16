@@ -13,7 +13,7 @@ on:
         type: string
 
 env:
-  KIND_NODE_IMAGES: ${{ fromJSON(vars.KIND_NODE_IMAGE) }}
+  KIND_NODE_IMAGES: ${{ vars.KIND_NODE_IMAGE }}
 
 jobs:
   reusable_set_up_kind:
@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Set Node image
         run: |
-          echo KIND_NODE_IMAGE=`echo $KIND_NODE_IMAGES | jq '."inputs.kubernetes_version"'` >> $GITHUB_ENV
+          echo KIND_NODE_IMAGE=`echo ${{ vars.KIND_NODE_IMAGES }} | jq '."inputs.kubernetes_version"'` >> $GITHUB_ENV
       - name: Reusable set up KinD
         if: ${{ contains(env.KIND_NODE_IMAGE, 'kindest/node') }}
         uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
