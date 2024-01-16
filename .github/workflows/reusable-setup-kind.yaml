@@ -12,16 +12,17 @@ on:
         required: true
         type: string
 
+env:
+  KIND_NODE_IMAGE: ${{ fromJSON(var.KIND_NODE_IMAGE) | jq '."inputs.kubernetes_version"' }}
+
 jobs:
   reusable_set_up_kind:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Node image
-        run:
-          echo "Get Node image"
       - name: Reusable set up KinD
+        if: ${{ contains(env.KIND_NODE_IMAGE, 'kindest/node') }}
         uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
         with:
           wait: 2m
           version: v${{ inputs.kind_version }}
-          # node_image: 
+          node_image: ${{ env.KIND_NODE_IMAGE }}
