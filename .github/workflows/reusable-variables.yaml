@@ -5,6 +5,9 @@ on:
       kind_version:
         description: 'KinD version to set up'
         value: '0.18.0'
+      kubernetes_version:
+        description: 'Kubernetes version to set up'
+        value: '1.28'
 jobs:
   set_variables:
     runs-on: ubuntu-latest
