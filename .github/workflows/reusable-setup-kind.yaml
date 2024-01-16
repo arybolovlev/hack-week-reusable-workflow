@@ -24,3 +24,4 @@ jobs:
         with:
           wait: 2m
           version: v${{ inputs.kind_version }}
+          # node_image: 
