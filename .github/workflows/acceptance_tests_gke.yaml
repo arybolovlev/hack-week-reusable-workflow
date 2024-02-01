@@ -21,55 +21,16 @@ on:
       terraformVersion:
         description: Terraform version
         default: 1.5.6
-  workflow_call:
-    inputs:
-      region:
-        description: The GKE region
-        default: northamerica-northeast1
-        type: string
-      zone:
-        description: The GKE zone
-        default: northamerica-northeast1-a
-        type: string
-      clusterVersion:
-        description: The GKE cluster version
-        default: 1.27
-        type: string
-      nodeCount:
-        description: The number of cluster nodes to provision
-        default: 1
-        type: number
-      instanceType:
-        description: The type of GKE instance to use for cluster nodes
-        default: e2-standard-2
-        type: string
-      terraformVersion:
-        description: Terraform version
-        default: 1.5.6
-        type: string
 
-env:
-  GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
-  GOOGLE_REGION: ${{ inputs.region || vars.GOOGLE_REGION }}
-  GOOGLE_ZONE: ${{ inputs.zone || vars.GOOGLE_ZONE }}
-  USE_GKE_GCLOUD_AUTH_PLUGIN: True
-  TERRAFORM_VERSION: ${{ inputs.terraformVersion || vars.TERRAFORM_VERSION }}
-  TF_VAR_cluster_version: ${{ inputs.clusterVersion || vars.CLUSTER_VERSION }}
-  TF_VAR_node_count: ${{ inputs.nodeCount || vars.GOOGLE_NODE_COUNT }}
-  TF_VAR_instance_type: ${{ inputs.instanceType || vars.GOOGLE_INSTANCE_TYPE }}
+# No Env variables here.
 
 jobs:
   acceptance_tests_gke:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Install Terraform'
-        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2.0.3
-        with:
-          terraform_version: ${{ env.TERRAFORM_VERSION }}
-          terraform_wrapper: false
-      - name: 'Provision GKE Cluster'
-        run: |
-          echo "Provisioning GKE Cluster"
-      - name: Run Acceptance Test Suite
-        run: |
-          echo "Running acceptance tests"
+    uses: ./.github/workflows/reusable_acceptance_tests_eks.yaml
+    with:
+      region: ${{ inputs.region || vars.GOOGLE_REGION }}      
+      zone: ${{ inputs.zone || vars.GOOGLE_ZONE }}
+      clusterVersion: ${{ inputs.clusterVersion || vars.CLUSTER_VERSION }}
+      nodeCount: ${{ inputs.nodeCount || vars.GOOGLE_NODE_COUNT }}
+      instanceType: ${{ inputs.instanceType || vars.GOOGLE_INSTANCE_TYPE }}
+      terraformVersion: ${{ inputs.terraformVersion || vars.TERRAFORM_VERSION }}

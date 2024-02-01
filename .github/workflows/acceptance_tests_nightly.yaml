@@ -10,17 +10,17 @@ env:
 
 jobs:
   nightly_acceptance_tests_kind:
-    uses: ./.github/workflows/acceptance_tests_kind.yaml
+    uses: ./.github/workflows/reusable_acceptance_tests_kind.yaml
     with:
       kindVersion: ${{ vars.KIND_VERSION }}
       terraformVersion: ${{ env.TERRAFORM_VERSION }}
   nightly_acceptance_tests_eks:
     needs: [nightly_acceptance_tests_kind]
-    uses: ./.github/workflows/acceptance_tests_eks.yaml
+    uses: ./.github/workflows/reusable_acceptance_tests_eks.yaml
     with:
       terraformVersion: ${{ env.TERRAFORM_VERSION }}
   nightly_acceptance_tests_gke:
     needs: [nightly_acceptance_tests_kind]
-    uses: ./.github/workflows/acceptance_tests_gke.yaml
+    uses: ./.github/workflows/reusable_acceptance_tests_gke.yaml
     with:
       terraformVersion: ${{ env.TERRAFORM_VERSION }}

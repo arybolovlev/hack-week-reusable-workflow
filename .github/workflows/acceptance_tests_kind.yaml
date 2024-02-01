@@ -19,36 +19,12 @@ on:
         required: true
         default: '1.7.1'
         type: string
-  workflow_call:
-    inputs:
-      kindVersion:
-        description: 'KinD version to set up'
-        required: true
-        type: string
-    terraformVersion:
-      description: 'Terraform version to set up'
-      required: true
-      default: '1.7.1'
-      type: string
 
-env:
-  KIND_VERSION: ${{ inputs.kindVersion || vars.KIND_VERSION }}
-  TERRAFORM_VERSION: ${{ inputs.terraformVersion || vars.TERRAFORM_VERSION }}
+# No Env variables here.
 
 jobs:
   acceptance_tests_kind:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Install Terraform'
-        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2.0.3
-        with:
-          terraform_version: ${{ env.TERRAFORM_VERSION }}
-          terraform_wrapper: false
-      - name: 'Set up KinD'
-        uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
-        with:
-          wait: 2m
-          version: v${{ env.KIND_VERSION }}
-      - name: Run Acceptance Test Suite
-        run: |
-          echo "Running acceptance tests"
+    uses: ./.github/workflows/reusable_acceptance_tests_kind.yaml
+    with:
+      kindVersion: ${{ inputs.kindVersion || vars.KIND_VERSION }}
+      terraformVersion: ${{ inputs.terraformVersion || vars.TERRAFORM_VERSION }}
