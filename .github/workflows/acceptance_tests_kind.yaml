@@ -28,7 +28,6 @@ on:
     terraformVersion:
       description: 'Terraform version to set up'
       required: true
-      default: '1.7.1'
       type: string
 
 env:
