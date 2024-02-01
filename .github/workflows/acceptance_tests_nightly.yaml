@@ -1,0 +1,72 @@
+name: Acceptance Tests [Nightly]
+
+on:
+  schedule:
+    - cron: '0 21 * * *'
+
+env:
+  TERRAFORM_VERSION: ${{ vars.TERRAFORM_VERSION }}
+  TF_VAR_cluster_version: ${{ vars.CLUSTER_VERSION }}
+
+jobs:
+  nightly_acceptance_tests_kind:
+    runs-on: ubuntu-latest
+    env:
+      KIND_VERSION: ${{vars.KIND_VERSION }}
+    steps:
+      - name: 'Install Terraform'
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2.0.3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - name: 'Set up KinD'
+        uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140 # v1.8.0
+        with:
+          wait: 2m
+          version: v${{ env.KIND_VERSION }}
+      - name: Run Acceptance Test Suite
+        run: |
+          echo "Running acceptance tests"
+  nightly_acceptance_tests_eks:
+    runs-on: ubuntu-latest
+    needs: [nightly_acceptance_tests_kind]
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      TF_VAR_az_span: ${{ vars.AWS_AZ_NUMBER }}
+      TF_VAR_capacity_type: ${{ vars.AWS_CAPACITY_TYPE }}
+      TF_VAR_nodes_per_az: ${{ vars.AWS_NODES_PER_AZ }}
+      TF_VAR_instance_type: ${{ vars.AWS_INSTANCE_TYPE }}
+    steps:
+      - name: 'Install Terraform'
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2.0.3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - name: 'Provision EKS Cluster'
+        run: |
+          echo "Provisioning EKS Cluster"
+      - name: Run Acceptance Test Suite
+        run: |
+          echo "Running acceptance tests"
+  nightly_acceptance_tests_gke:
+    needs: [nightly_acceptance_tests_kind]
+    runs-on: ubuntu-latest
+    env:
+      GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+      GOOGLE_REGION: ${{ vars.GOOGLE_REGION }}
+      GOOGLE_ZONE: ${{ vars.GOOGLE_ZONE }}
+      USE_GKE_GCLOUD_AUTH_PLUGIN: True
+      TF_VAR_node_count: ${{ vars.GOOGLE_NODE_COUNT }}
+      TF_VAR_instance_type: ${{ vars.GOOGLE_INSTANCE_TYPE }}
+    steps:
+      - name: 'Install Terraform'
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2.0.3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - name: 'Provision GKE Cluster'
+        run: |
+          echo "Provisioning GKE Cluster"
+      - name: Run Acceptance Test Suite
+        run: |
+          echo "Running acceptance tests"

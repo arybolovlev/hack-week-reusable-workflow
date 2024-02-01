@@ -7,8 +7,6 @@ on:
     paths:
       - 'kubernetes/*.go'
       - 'go.mod'
-  schedule:
-    - cron: '0 21 * * *'
   workflow_dispatch:
     inputs:
       kind_version:

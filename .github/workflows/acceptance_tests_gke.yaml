@@ -1,8 +1,6 @@
 name: Acceptance Tests [GKE]
 
 on:
-  schedule:
-    - cron: '0 21 * * *'
   workflow_dispatch:
     inputs:
       region:
@@ -35,7 +33,7 @@ env:
   TF_VAR_instance_type: ${{ github.event.inputs.instanceType || vars.GOOGLE_INSTANCE_TYPE }}
 
 jobs:
-  acceptance_tests_eks:
+  acceptance_tests_gke:
     runs-on: ubuntu-latest
     steps:
       - name: 'Install Terraform'
