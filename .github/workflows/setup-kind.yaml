@@ -11,11 +11,11 @@ on:
         required: true
         default: '0.20.0'
         type: string
-      kubernetes_version:
-        description: 'Kubernetes version to install'
-        required: true
-        default: '1.28'
-        type: string
+#      kubernetes_version:
+#        description: 'Kubernetes version to install'
+#        required: true
+#        default: '1.28'
+#        type: string
 
 jobs:
   set_variables:
@@ -25,4 +25,4 @@ jobs:
     needs: [set_variables]
     with:
       kind_version: ${{ inputs.kind_version || needs.set_variables.outputs.kind_version }}
-      kubernetes_version: ${{ inputs.kubernetes_version }}
+ #     kubernetes_version: ${{ inputs.kubernetes_version }}
