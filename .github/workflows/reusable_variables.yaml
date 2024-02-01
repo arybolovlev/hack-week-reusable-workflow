@@ -9,6 +9,7 @@ on:
       terraformVersion:
         description: 'Terraform version to set up'
         value: '1.7.1'
+
 jobs:
   set_variables:
     runs-on: ubuntu-latest
