@@ -1,0 +1,55 @@
+name: Update reusable variables
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+
+env:
+  KIND_VERSION: ${{ vars.KIND_VERSION }}
+  KUBERNETES_VERSION: ${{ vars.KUBERNETES_VERSION }}
+  VAR_FILE: './.github/workflows/reusable_variables.yaml'
+
+jobs:
+  update_reusable_variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Application Token
+        id: generate_app_token
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          installation_retrieval_mode: id
+          installation_retrieval_payload: ${{ secrets.APP_INSTALLATION_ID }}
+          private_key: ${{secrets.APP_PEM }}
+      - name: Checkout repository
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+      - name: Update reusable variables [KIND_VERSION]
+        uses: mikefarah/yq@dd648994340a5d03225d97abf19c9bf1086c3f07 # 4.40.5
+        with:
+          cmd: yq -i '.on.workflow_call.outputs.kind_version.value=env(KIND_VERSION)' ${{ env.VAR_FILE }}
+      - name: Update reusable variables [KUBERNETES_VERSION]
+        uses: mikefarah/yq@dd648994340a5d03225d97abf19c9bf1086c3f07 # 4.40.5
+        with:
+          cmd: yq -i '.on.workflow_call.outputs.kubernetes_version.value=env(KUBERNETES_VERSION)' ${{ env.VAR_FILE }}
+      - name: Raise a pull request
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
+        with:
+          # The email must be in the form of <app_id>+<app_user>[bot]@users.noreply.github.com
+          # To get ID: https://api.github.com/users/kubernetes-matroos[bot]
+          author: kubernetes-matroos[bot] <153752817+kubernetes-matroos[bot]@users.noreply.github.com>
+          commit-message: Update reusable variables.
+          title: 🛟 Update reusable variables
+          body: |
+            👋🏻 Hello!
+            
+            This PR is automatically generated in response to an update to repository variables. It is aimed at updating reusable workflow variables. 🛠️
+
+            Please review it and if everything looks fine, please approve it and merge it!
+            
+            Thank you! 🙌
+          base: main
+          labels: matroos
+          branch: update-reusable-variable
+          delete-branch: true
+          add-paths: ${{ env.VAR_FILE }}
+          token: ${{ steps.generate_app_token.outputs.token }}

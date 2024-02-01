@@ -1,0 +1,18 @@
+name: Set Reusable Variables
+
+on:
+  workflow_call:
+    outputs:
+      kindVersion:
+        description: 'KinD version to set up'
+        value: '0.18.0'
+      terraformVersion:
+        description: 'Terraform version to set up'
+        value: '1.7.1'
+jobs:
+  set_variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set reusable variables
+        run: |
+          echo "Set reusable variables"

@@ -23,8 +23,11 @@ on:
 # No Env variables here.
 
 jobs:
+  set_variables:
+    uses: ./.github/workflows/reusable_variables.yaml
   acceptance_tests_kind:
     uses: ./.github/workflows/reusable_acceptance_tests_kind.yaml
+    needs: [set_variables]
     with:
-      kindVersion: ${{ inputs.kindVersion || vars.KIND_VERSION }}
-      terraformVersion: ${{ inputs.terraformVersion || vars.TERRAFORM_VERSION }}
+      kindVersion: ${{ inputs.kindVersion || needs.set_variables.outputs.kindVersion }}
+      terraformVersion: ${{ inputs.terraformVersion || needs.set_variables.outputs.terraformVersion }}
