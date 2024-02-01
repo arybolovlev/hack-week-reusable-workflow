@@ -21,16 +21,42 @@ on:
       terraformVersion:
         description: Terraform version
         default: 1.5.6
+  workflow_call:
+    inputs:
+      region:
+        description: The GKE region
+        default: northamerica-northeast1
+        type: string
+      zone:
+        description: The GKE zone
+        default: northamerica-northeast1-a
+        type: string
+      clusterVersion:
+        description: The GKE cluster version
+        default: 1.27
+        type: string
+      nodeCount:
+        description: The number of cluster nodes to provision
+        default: 1
+        type: number
+      instanceType:
+        description: The type of GKE instance to use for cluster nodes
+        default: e2-standard-2
+        type: string
+      terraformVersion:
+        description: Terraform version
+        default: 1.5.6
+        type: string
 
 env:
   GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
-  GOOGLE_REGION: ${{ github.event.inputs.region || vars.GOOGLE_REGION }}
-  GOOGLE_ZONE: ${{github.event.inputs.zone || vars.GOOGLE_ZONE }}
+  GOOGLE_REGION: ${{ inputs.region || vars.GOOGLE_REGION }}
+  GOOGLE_ZONE: ${{ inputs.zone || vars.GOOGLE_ZONE }}
   USE_GKE_GCLOUD_AUTH_PLUGIN: True
-  TERRAFORM_VERSION: ${{ github.event.inputs.terraformVersion || vars.TERRAFORM_VERSION }}
-  TF_VAR_cluster_version: ${{ github.event.inputs.clusterVersion || vars.CLUSTER_VERSION }}
-  TF_VAR_node_count: ${{ github.event.inputs.nodeCount || vars.GOOGLE_NODE_COUNT }}
-  TF_VAR_instance_type: ${{ github.event.inputs.instanceType || vars.GOOGLE_INSTANCE_TYPE }}
+  TERRAFORM_VERSION: ${{ inputs.terraformVersion || vars.TERRAFORM_VERSION }}
+  TF_VAR_cluster_version: ${{ inputs.clusterVersion || vars.CLUSTER_VERSION }}
+  TF_VAR_node_count: ${{ inputs.nodeCount || vars.GOOGLE_NODE_COUNT }}
+  TF_VAR_instance_type: ${{ inputs.instanceType || vars.GOOGLE_INSTANCE_TYPE }}
 
 jobs:
   acceptance_tests_gke:

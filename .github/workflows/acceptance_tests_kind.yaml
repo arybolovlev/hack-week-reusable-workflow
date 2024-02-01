@@ -9,7 +9,7 @@ on:
       - 'go.mod'
   workflow_dispatch:
     inputs:
-      kind_version:
+      kindVersion:
         description: 'KinD version to set up'
         required: true
         default: '0.20.0'
@@ -19,6 +19,17 @@ on:
         required: true
         default: '1.7.1'
         type: string
+  workflow_call:
+    inputs:
+      kindVersion:
+        description: 'KinD version to set up'
+        required: true
+        type: string
+    terraformVersion:
+      description: 'Terraform version to set up'
+      required: true
+      default: '1.7.1'
+      type: string
 
 env:
   KIND_VERSION: ${{ inputs.kindVersion || vars.KIND_VERSION }}
