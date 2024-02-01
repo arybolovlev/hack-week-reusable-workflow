@@ -1,0 +1,51 @@
+name: Acceptance Tests [GKE]
+
+on:
+  schedule:
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+    inputs:
+      region:
+        description: The GKE region
+        default: northamerica-northeast1
+      zone:
+        description: The GKE zone
+        default: northamerica-northeast1-a
+      clusterVersion:
+        description: The GKE cluster version
+        default: 1.27
+      nodeCount:
+        description: The number of cluster nodes to provision
+        default: 1
+      instanceType:
+        description: The type of GKE instance to use for cluster nodes
+        default: e2-standard-2
+      terraformVersion:
+        description: Terraform version
+        default: 1.5.6
+
+env:
+  GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+  GOOGLE_REGION: ${{ github.event.inputs.region || vars.GOOGLE_REGION }}
+  GOOGLE_ZONE: ${{github.event.inputs.zone || vars.GOOGLE_ZONE }}
+  USE_GKE_GCLOUD_AUTH_PLUGIN: True
+  TERRAFORM_VERSION: ${{ github.event.inputs.terraformVersion || vars.TERRAFORM_VERSION }}
+  TF_VAR_cluster_version: ${{ github.event.inputs.clusterVersion || vars.CLUSTER_VERSION }}
+  TF_VAR_node_count: ${{ github.event.inputs.nodeCount || vars.GOOGLE_NODE_COUNT }}
+  TF_VAR_instance_type: ${{ github.event.inputs.instanceType || vars.GOOGLE_INSTANCE_TYPE }}
+
+jobs:
+  acceptance_tests_eks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Install Terraform'
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2.0.3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - name: 'Provision GKE Cluster'
+        run: |
+          echo "Provisioning GKE Cluster"
+      - name: Run Acceptance Test Suite
+        run: |
+          echo "Running acceptance tests"
