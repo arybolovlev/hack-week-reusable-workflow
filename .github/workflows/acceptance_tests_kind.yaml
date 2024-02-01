@@ -9,7 +9,7 @@ on:
       - 'go.mod'
   workflow_dispatch:
     inputs:
-      kind_version:
+      kindVersion:
         description: 'KinD version to set up'
         required: true
         default: '0.20.0'
