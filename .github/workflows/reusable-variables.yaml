@@ -4,10 +4,10 @@ on:
     outputs:
       kind_version:
         description: 'KinD version to set up'
-        value: '0.18.0'
+        value: '0.20.0'
       kubernetes_version:
         description: 'Kubernetes version to set up'
-        value: '1.28'
+        value: 1.27
 jobs:
   set_variables:
     runs-on: ubuntu-latest
