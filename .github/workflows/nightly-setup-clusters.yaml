@@ -9,7 +9,7 @@ jobs:
     uses: ./.github/workflows/reusable-setup-kind.yaml
     with:
       kind_version: ${{ vars.KIND_VERSION }}
-      kubernetes_version: ${{ vars.KUBERNETES_VERSION }}
+#      kubernetes_version: ${{ vars.KUBERNETES_VERSION }}
   set_up_aks:
     uses: ./.github/workflows/reusable-setup-aks.yaml
     needs: [set_up_kind]
